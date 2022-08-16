@@ -2,8 +2,10 @@ import UserModel from "../models/UserModel.js";
 import asyncHandler from "express-async-handler";
 
 export const getMe = asyncHandler(async(req  ,res )=>{
-        const user = req.user
-         return res.status(201).json(user)
+        const id = req.user.id
+        const user =  await UserModel.findOne({id})
+        const { password , isAdmin , ...other} = user._doc
+        return res.status(201).json(other)
         
         
         

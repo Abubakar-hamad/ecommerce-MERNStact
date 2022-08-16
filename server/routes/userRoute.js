@@ -5,7 +5,7 @@ import { verifyAdmin, verifyToken, verifyuser } from '../middleware/verifyToken.
 const route = express.Router()
 
 
-route.get('/' , verifyToken  , getMe   )
+route.get('/me' , verifyToken  , getMe   )
 route.get('/allusers' , verifyAdmin , getUsers )
 route.get('/:id' ,verifyToken , getUser )
 route.put('/:id' , verifyuser  ,updateUser )

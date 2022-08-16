@@ -61,3 +61,7 @@ export const loginUser  = asyncHandler(async(req  , res)=>{
 })
 
 
+export const logout = asyncHandler(async(req  , res)=>{
+    res.clearCookie("access_token").status(200).json('cookies removed')
+    res.end()
+})

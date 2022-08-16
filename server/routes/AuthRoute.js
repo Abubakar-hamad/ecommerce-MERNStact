@@ -5,10 +5,11 @@ import express from "express";
 
 const route = express.Router()
 
-import {loginUser, registerUser} from '../controllers/AuthController.js'
+import {loginUser, logout, registerUser} from '../controllers/AuthController.js'
 
 route.post('/register' , registerUser )
 route.post('/login' , loginUser)
+route.get('/logout' , logout)
 
 
 

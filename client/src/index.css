@@ -1,13 +1,36 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+   font-family: 'Quicksand', sans-serif;
+   
+}
+.form-input{
+    @apply outline-none border-b-2 p-3 border-gray-400 text-xl
+}
+.btn-primary{
+    @apply py-2 px-4 bg-blue-500  text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 capitalize cursor-pointer 
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.btn-auth{
+    @apply p-1.5 text-sm  bg-gray-500  text-gray-200 font-semibold rounded-lg shadow-md hover:bg-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 capitalize cursor-pointer transition-all 
+}
+
+.dropdown{
+    @apply absolute grid gap-2 bg-slate-300 p-3 w-36 text-sm rounded-md border-solid border-2 border-gray-400 
+}
+.link{
+   @apply hover:text-black hover:font-bold transition-all 
+}
+
+.active{
+  @apply text-black font-bold transition-all border-b 
+}
+
+.scroll::-webkit-scrollbar{
+    display: none;
 }

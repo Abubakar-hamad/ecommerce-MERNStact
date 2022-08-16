@@ -50,7 +50,7 @@ export const getDetails = asyncHandler(async(req ,res)=>{
         throw new Error("product Not found")
     }
 
-    res.status(200).json({"Poduct Details":product})
+    res.status(200).json({product})
 })
 
 export const getAllProducts = asyncHandler(async(req  ,res)=>{
