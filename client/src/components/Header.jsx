@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import UseFetch from '../hooks/useFetch'
 import {AiOutlineMail , AiOutlineTwitter , AiOutlineInstagram} from 'react-icons/ai'
-import {BsTelephone , BsFacebook} from 'react-icons/bs'
+import {BsTelephone , BsFacebook , BsCart4} from 'react-icons/bs'
 import {IoIosArrowDown} from 'react-icons/io'
 import { FiUser , FiUserPlus , FiLogOut} from 'react-icons/fi'
 import icon from   '../icon.png'
@@ -15,6 +15,7 @@ import { useState } from 'react'
 
 
 const Header = () => {
+
     const navigate = useNavigate()
     const date =  Date();
     const profile = JSON.parse(localStorage.getItem('u-p'))
@@ -32,7 +33,6 @@ const Header = () => {
 
     const mouseHover =()=>{
         setModel(x=> !x)
-        console.log(model);
     }
 
     const activeClick = (e)=>{
@@ -40,7 +40,8 @@ const Header = () => {
  
     }
 
-    
+    const {data}  = UseFetch('/prod/cart')
+
   return (
     <>
       <div  className='h-7 text-sm bg-slate-200 grid grid-cols-2 items-center justify-around px-2'>
@@ -83,14 +84,24 @@ const Header = () => {
                     <span className='flex items-center  cursor-pointer link' > navigate <IoIosArrowDown className='text-sm' /></span>
                    {model ?
                      <div  onMouseLeave={()=>setModel(false)}  className="dropdown">
-                     <Link className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/'}>My Product</Link>
+                     <Link className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/new'}>Add Product</Link>
                      <Link className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/'}>saved Product</Link>
-                     <Link className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/'}>create Product</Link>
+                     <Link className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/myproducts'}>My Product</Link>
                     </div>
+
+                  
                     :
                     ''   
                     }
+
                 </div>
+                <Link className='relative' to={'/cart'}>
+                    <BsCart4 className='text-2xl mx-3'/> 
+                    {data  &&
+ 
+                    <span className='absolute -top-3 -right-1 bg-rose-900 text-white text-sm w-5 h-5  text-center rounded-full '>{data.length}</span>
+                    }
+                </Link>
             </ul>
         </nav>
 

@@ -5,13 +5,39 @@ import Spinner from '../components/Spinner/Spinner'
 import img from '../img.jpg'
 import {AiOutlineStar , AiFillStar ,AiOutlineShoppingCart  , AiOutlineHeart} from 'react-icons/ai'
 import Review from '../components/Review'
+import { addToCart , getCart, reset } from '../Redux/slices/productSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+
+import {toast} from 'react-toastify'
 
 const ProductDetails = () => {
     const param  = useParams()
-    
-    const {data ,isLoading  , isError}  = UseFetch(`/prod/${param.id}/`)
+
+  
+    const dispatch = useDispatch()
+    const {data ,isLoading  , isError , messgae}  = UseFetch(`/prod/${param.id}/`)
+    const {cart , product } = useSelector(state => state.products)
     const item = data.product
-    console.log(item);
+    const btn = document.getElementById('cart')
+    
+   
+
+    useEffect(()=>{
+      dispatch(getCart())
+      if(isError){
+      toast.error(messgae)
+      }
+    
+    },[dispatch])
+
+    const ToCart = (id)=>{
+      dispatch(addToCart(id))
+      if(product !== ''){
+        toast.success(product)
+      }
+    }
+    
     return (
 
     <div>
@@ -23,13 +49,13 @@ const ProductDetails = () => {
     <div className="basis-1/2 grid gap-4 ">
       <div className="flex gap-4 items-center ">
       <div className="left">
-      <div class="flex items-center text-yellow-500  ">
+      <div className="flex items-center text-yellow-500  ">
               <AiFillStar />
               <AiFillStar />
               <AiFillStar />
               <AiFillStar />
               <AiOutlineStar />
-          <p class="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">4.95 out of 5</p>
+          <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">4.95 out of 5</p>
         </div> 
         <div className="det text-sm capitalize">
               <div className="flex text-2xl  font-bold">
@@ -48,7 +74,7 @@ const ProductDetails = () => {
      
       </div>
         <div className="btns flex items-center gap-2">
-        <button className='btn-auth flex justify-center items-center gap-2 '>add to cart <AiOutlineShoppingCart/></button>
+        <button id='cart' onClick={()=>{ToCart(item._id)}} className='btn-auth flex justify-center items-center gap-2 '>add to cart <AiOutlineShoppingCart/></button>
         <AiOutlineHeart className='text-red-400 text-2xl cursor-pointer'/>
       </div>
       </div>

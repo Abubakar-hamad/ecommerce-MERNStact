@@ -38,8 +38,9 @@ export const deleteProd = asyncHandler(async(req , res)=>{
     if(!product){
         res.status(404)
         throw new Error("product Not found")
-    }
-
+    } 
+    await UserModel.findByIdAndUpdate(req.user.id , {$pull:{userProd:req.params.id}})
+    await UserModel.findByIdAndUpdate(req.user.id , {$pull:{userCart:req.params.id}})
     res.status(200).json({"Deleted successfully":product})
 })
 
@@ -65,12 +66,11 @@ export const getAllProducts = asyncHandler(async(req  ,res)=>{
 })
 
 export const filterProducts = asyncHandler(async(req,res)=>{
-    const { min , max , prCategory  , ...others }= req.query
+    const { min , max  , ...others }= req.query;
     const products = await ProductModel.find({
         ...others ,
         prPrice:{$gt:min || 1 , $lt:max || 100000} , 
-        prCategory,
-    })
+    }).limit(req.query.limit);
     if(!products){
         res.status(200)
         throw new Error("no product with this filter")
@@ -84,9 +84,38 @@ export const myProd = asyncHandler(async(req , res)=>{
     const items = await Promise.all(user.userProd.map((item)=>{
         return ProductModel.findById(item)
     }))
-    if(!items || items == ''){
+    if(!items || items == '' || items == null){
         res.status(404).json("no product for this user")
     }
+    res.status(200).json(items)
+})
+
+export const Addcart = asyncHandler(async(req , res)=>{
+    const user = await UserModel.findById(req.user.id)
+    if(!user){
+        res.status(401)
+        throw new Error('you most to login first')
+    }
+    const product = await ProductModel.findById(req.params.id)
+    
+    const isExist = await ProductModel.findById(user.userCart , product.id)
+    if(isExist){
+       return res.status(400).json('item already added')
+    }
+    await UserModel.findByIdAndUpdate(req.user.id , {$push:{userCart:product.id}})
+    res.status(200).json('Added to Cart')
+})
+
+export const cart = asyncHandler(async(req   ,res)=>{
+    const user = await UserModel.findById(req.user.id)
+    if(!user){
+        res.status(401)
+        throw new Error ("you most login first")
+    }
+    const items = await Promise.all(user.userCart.map(item =>{
+        return ProductModel.findById(item)
+    }))
+
     res.status(200).json(items)
 })
 
@@ -108,3 +137,4 @@ export const countByCategory = asyncHandler(async(req , res)=>{
     }))
     return res.status(200).json(list)
 })
+

@@ -90,7 +90,7 @@ const Review = () => {
             </div>
         </div>
         <div className="addRev container grid  basis-1/4">
-        <div class="flex items-center justify-center text-2xl text-yellow-500  ">
+        <div className="flex items-center justify-center text-2xl text-yellow-500  ">
               <AiOutlineStar className='cursor-pointer' />
               <AiOutlineStar className='cursor-pointer' />
               <AiOutlineStar className='cursor-pointer' />

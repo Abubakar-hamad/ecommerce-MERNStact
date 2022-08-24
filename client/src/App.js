@@ -9,6 +9,9 @@ import Register from './pages/Register';
 import MyProfile from './pages/MyProfile';
 import ProductDetails from './pages/ProductDetails';
 import Products from './components/Products';
+import MyProduct from './pages/MyProduct';
+import AddProduct from './pages/AddProduct';
+import Cart from './pages/Cart';
 
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
             <Route path='/profile' element={<MyProfile />} />
             <Route path='/product/:id' element={<ProductDetails />} />
             <Route path='/products' element={<Products />} />
+            <Route path='/myproducts' element={<MyProduct/>} />
+            <Route path='/new' element={<AddProduct/>} />
+            <Route path='/cart' element={<Cart/>} />
           </Routes>
           <ToastContainer/>
       </Router>

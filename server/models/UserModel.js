@@ -26,6 +26,9 @@ const userSchema = mongoose.Schema({
 	} , 
     userProd:{
         type:[String]
+    } ,
+    userCart:{
+        type:[String]
     }
     
 } ,
