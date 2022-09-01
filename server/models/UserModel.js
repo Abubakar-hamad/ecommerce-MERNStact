@@ -29,6 +29,9 @@ const userSchema = mongoose.Schema({
     } ,
     userCart:{
         type:[String]
+    } ,
+    commentsInProducts:{
+        type:[String]
     }
     
 } ,

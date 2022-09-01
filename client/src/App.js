@@ -12,9 +12,12 @@ import Products from './components/Products';
 import MyProduct from './pages/MyProduct';
 import AddProduct from './pages/AddProduct';
 import Cart from './pages/Cart';
+import { useState } from 'react';
+import Footer from './components/Footer';
 
 
 function App() {
+  const [cart , setCart] =  useState('')
   return (
    
 
@@ -26,12 +29,13 @@ function App() {
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/profile' element={<MyProfile />} />
-            <Route path='/product/:id' element={<ProductDetails />} />
+            <Route path='/product/:id' element={<ProductDetails setCart={setCart} cart={cart} />} />
             <Route path='/products' element={<Products />} />
             <Route path='/myproducts' element={<MyProduct/>} />
             <Route path='/new' element={<AddProduct/>} />
-            <Route path='/cart' element={<Cart/>} />
+            <Route path='/cart' element={<Cart cart={cart}/>} />
           </Routes>
+          <Footer />
           <ToastContainer/>
       </Router>
 

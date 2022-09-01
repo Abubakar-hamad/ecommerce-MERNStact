@@ -47,13 +47,13 @@ const Register = () => {
     }
   }
   return (
-    <div className='container'>
-      <h1 className='text-4xl my-10 bg-slate-400 p-4 rounded-lg '>Register Form</h1>
-        <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-8 my-10' action="">
-          <input onChange={handleChange} type="text" name="name" placeholder='Enter Name' className='form-input' />
-          <input onChange={handleChange} type="text" name="email" placeholder='Enter Email' className='form-input' />
-          <input onChange={handleChange} type="text" name="password" placeholder='Enter Password' className='form-input' />
-          <input onChange={handleChange} type="text" name="password2" placeholder='Enter Password Again' className='form-input' />
+    <div className='container  grid justify-center items-center'>
+      <h1 className='text-4xl sm:text-xl my-10 bg-slate-400 bg-opacity-25 text-center p-2 rounded-lg '>Register Form</h1>
+        <form onSubmit={handleSubmit} className='grid justify-center items-center gap-8 shadow-black shadow-lg p-5 md:w-96 sm:92 ' action="">
+          <input onChange={handleChange} type="text" name="name" placeholder='Enter Name' className='form-input bg-inherit' />
+          <input onChange={handleChange} type="text" name="email" placeholder='Enter Email' className='form-input bg-inherit ' />
+          <input onChange={handleChange} type="text" name="password" placeholder='Enter Password' className='form-input bg-inherit' />
+          <input onChange={handleChange} type="text" name="password2" placeholder='Enter Password Again' className='form-input bg-inherit' />
           <input onChange={handleChange} type="submit" value='confirm' className='btn-primary' />
    
         <p className='capitalize text-sm'>already have an acount ? <Link to={'/login'} className="underline text-blue-600 " >login</Link></p>

@@ -3,7 +3,9 @@ import cors from "cors"
 import dotenv from "dotenv"
 import connnectDB from './config/db.js'
 import errorHandler from './middleware/errorMiddleware.js'
+import asyncHandler from "express-async-handler";
 import cloudinary from 'cloudinary'
+import multer from 'multer'
 dotenv.config()
 connnectDB()
 cloudinary.config({
@@ -16,29 +18,42 @@ const app = express()
 import Auth from './routes/AuthRoute.js'
 import User from './routes/userRoute.js'
 import Product from './routes/prodRoute.js'
+import Comm from "./routes/commentRoute.js";
 import cookieParser from "cookie-parser";
+import bodyParser from 'body-parser'
 app.use(cors())
 app.use(express.json())
 app.use(errorHandler)
 app.use(cookieParser())
 
-app.post('/api/upload' , async(req, res)=>{
-    const imgStr = req.body.imgData 
-    const uploadResponse = await cloudinary.uploader.upload(imgStr)
-    console.log(uploadResponse);
-    res.status(201).json('imgUploaded')
-   try {
-    await cloudinary.uploader.destroy(public_id);
-    res.status(200).send()
-   } catch (error) {
-        res.status(400).json(error)
-   }
-})
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
+app.use(express.static('public'))
+// multer config
+const storage = multer.diskStorage({
+    destination:(req , file , cb)=>{
+        cb(null , './public')
+    } ,
+    filename:(req, file ,cb)=>{
+        const fName  = `${Date.now()}_${file.originalname}`
+        cb(null  , fName)
+    }
+})
+const upload = multer({storage:storage}).single('prImg')
+
+app.post('/api/uploads' , upload , (req , res)=>{
+    const {file} = req;
+    res.send({ 
+        file:file.originalname,
+        path:file.path ,
+        })
+}) 
 
 app.use('/api/Auth'  , Auth)
 app.use('/api/user'  , User)
 app.use('/api/prod'  , Product)
+app.use('/api/comment' , Comm )
 
 
 app.listen(port , ()=> console.log(`server Running on Port ${port}`) )

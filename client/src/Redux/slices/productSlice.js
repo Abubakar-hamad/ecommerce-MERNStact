@@ -4,12 +4,12 @@ import axios from 'axios'
 
 
 const product = JSON.parse(localStorage.getItem("products"))
-const carts = JSON.parse(localStorage.getItem("cart"))
+
 
 const initialState = {
     items : product ? product : null,
     product: '',
-    cart:carts ? carts :'' ,
+
     isSuccess:false , 
     isLoading:false ,
     isError:false ,
@@ -50,28 +50,10 @@ export const deleteProducts=  createAsyncThunk('products/deleteProd' , async(id 
 })
 
 
-export const getCart = createAsyncThunk('products/getCart' , async(data , thunkAPI)=>{
-    try {   
-        const res = await axios.get('/prod/cart' , data)
-        return res.data
-        
-    } catch (error) {
-        const message = (error.data && error.response && error.data.response ) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message)
-    }    
-})
 
 
 
-export const addToCart = createAsyncThunk('products/addcart' , async(id , data , thunkAPI)=>{
-    try {
-        const res = await axios.post(`/prod/cart/${id}` , data)
-        return res.data
-    } catch (error) {
-        const message = (error.data && error.response && error.data.response ) || error.message || error.toString();
-        return thunkAPI.rejectWithValue(message)
-    }
-})
+
 
 export const ProductSlice = createSlice({
   name: 'products',
@@ -84,6 +66,10 @@ export const ProductSlice = createSlice({
         state.isLoading =false 
         state.isError =false 
         state.message =''
+    } ,
+    removeitem:(state  , action)=>{
+        const itemId = action.payload
+        state.product = state.product.filter((item) =>item.id !== itemId)
     }
   } ,
   extraReducers:(builder)=>{
@@ -135,42 +121,13 @@ export const ProductSlice = createSlice({
         state.message = action.payload
     })
 
-     // add to cart
-     .addCase(addToCart.pending , (state)=>{
-        state.isLoading = true 
-    })
-    .addCase(addToCart.fulfilled , (state , action)=>{
-        state.isLoading = false 
-        state.isSuccess = true 
-        state.product = action.payload
- 
-    })
-    .addCase(addToCart.rejected  , (state , action)=>{
-        state.isLoading = false 
-        state.isError=true 
-        state.message = action.payload
-    })
+    
 
 
-     // get cart
-     .addCase(getCart.pending , (state)=>{
-        state.isLoading = true 
-    })
-    .addCase(getCart.fulfilled , (state , action)=>{
-        state.isLoading = false 
-        state.isSuccess = true 
-        state.cart = action.payload
- 
-    })
-    .addCase(getCart.rejected  , (state , action)=>{
-        state.isLoading = false 
-        state.isError=true 
-        state.message = action.payload
-    })
   }
 })
 
 
-export const { reset } = ProductSlice.actions
+export const { reset , removeitem } = ProductSlice.actions
 
 export default ProductSlice.reducer

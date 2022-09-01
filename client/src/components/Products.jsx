@@ -1,57 +1,48 @@
 import React from 'react'
-import { useEffect } from 'react'
+
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { reset , getProducts } from '../Redux/slices/productSlice'
-import img from '../img.jpg'
 import Search from './Search'
 import Spinner from './Spinner/Spinner'
+import UseFetch from '../hooks/useFetch'
 
 const Products = () => {
-    const dispatch = useDispatch()
-
-    const {items, isLoading , isError  , message  , isSuccess}  =  useSelector(state => state.products)  
-    const navigate = useNavigate()
-    useEffect(()=>{
-        dispatch(getProducts())
-        return ()=>{
-            dispatch(reset())
-        }
-    },[dispatch ])
+    // const dispatch = useDispatch()
+    const [type , setType] = useState('')
     
+    // const {items, isLoading , isError  , message  , isSuccess}  =  useSelector(state => state.products)  
+    const navigate = useNavigate()
+    const {data  , isLoading , isError} =  UseFetch(type ? `/prod/filter?prCategory=${type}` : `/prod/` ) 
+  
     
     if(isError){
-        toast.error(message)
+        toast.error(isError.message)
     }
-    if(isLoading){
-        console.log('loading');
-    }
+
 
    
 
-
     return (
 
-    <div className="container gap-4 flex h-full my-10 ">
+    <div className="container  md:flex md-flex-col-2 h-full md:my-10 sm:gap-4  sm:grid sm:justify-center sm:items-center ">
 
-    <div className=" basis-5/6 mt-2 h-80   rounded-md p-2 "> 
-        <Search />
+    <div className=" md:basis-1/6 md:mt-2 s md:h-90 rounded-md"> 
+        <Search setType={setType} />
        </div>
     
-    <div className='  grid grid-cols-4 gap-2  basis-6/7 h-96 scroll overflow-y-scroll  '>
-       { items ? items.map((item) =>{
+    <div className='   md:basis-6/7  grid md:grid-cols-3 sm:grid-cols-2 gap-4 sm:h-96  md:h-90 scroll overflow-y-scroll  '>
+       { data ? data.products.map((item) =>{
         return(
-            <div onClick={()=>navigate(`/product/${item._id}`)} className='border grid grid-row-2 md:my-2 shadow-md shadow-slate-400 cursor-pointer rounded-md ' key={item._id}>
+            <div onClick={()=>navigate(`/product/${item._id}`)} className='border grid grid-row-2 md:my-2 h-60 p-4 bg-white  shadow-md shadow-slate-400 cursor-pointer rounded-md ' key={item._id}>
               
                 <div className='relative  overflow-hidden ' >
-                    <img className=' hover:scale-105 w-full hover:transition-all' src={img} alt="" />
+                    <img className=' hover:scale-105 w-full h-48 hover:transition-all' src={item.prImg} alt="img" />
                     <p style={{'fontSize':'10px' , 'padding':'2px' , 'backgroundColor':item.prCategory === 'toys' && 'yellowgreen' || item.prCategory === 'electronic' && 'skyblue' || item.prCategory === 'fashion' && 'pink'  }} className=' text-gray-700 inline  rounded-md text-sm absolute right-2 top-5'>{item.prCategory}</p>
                     </div>
                     <div className="content">
                     <p className='text-2xl text-gray-700 font-bold text-center capitalize'>{item.prName}</p>
-                    <hr />
+           
                     {/* <p className='text-sm  bg-gray-200 bg-opacity-75 text-center' >{item.prDesc}</p> */}
                     </div> 
 
@@ -59,12 +50,15 @@ const Products = () => {
         )
        })
         : 
-       <Spinner/>
+    
+       <Spinner />
+
+
        } 
 
     </div>
 
-      
+    
     </div>
   )
 }

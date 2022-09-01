@@ -31,6 +31,9 @@ const productScheema = mongoose.Schema({
     prImg:{
         type:[String]
     } ,
+    comments:{
+        type:[String]
+    }
 } ,
     {
         timestamps:true

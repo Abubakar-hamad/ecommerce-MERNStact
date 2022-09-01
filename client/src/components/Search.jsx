@@ -1,28 +1,35 @@
 import React from 'react'
+import UseFetch from '../hooks/useFetch'
 
-const Search = () => {
+const Search = ({setType}) => {
+  
+
+  // const {data } = UseFetch('/prod/category')
+
+  const handleClick = (e)=>{
+   const val =  e.target.innerText
+   {setType(val.toLowerCase())}
+   
+  }
+  const handleClear = ()=>{
+    setType('')
+  }
   return (
-    <div className='shadow-xl shadow-black/25 grid gap-3 p-3 bg-gradient-to-t from-slate-300 rounded-md capitalize ' >
-            <p >search option</p>
-        <div className="">
-        <select  className=' bg-slate-300 rounded-md p-1 w-full' name="category" id="">
-            <option hidden value="category">category</option>
-            <option value="">electronic</option>
-            <option value="">toys</option>
-            <option value="">fashion</option>
-        </select>
-        </div>
-        <hr />
-        <p>Price Range</p>
-        <div className="flex  items-center justify-between gap-2">
-         <span>min</span> <input type="text" className='bg-slate-100 border-2 border-gray-400  rounded-md  w-24'/>
-        </div>
+    <div className=' shadow-xl shadow-black/25 md:h-60 sm:w-96 md:w-36 sm:flex sm:justify-center md:grid md:grid-cols-1 sm:py-5   gap-3 md:p-5 bg-gradient-to-t from-slate-300 rounded-md capitalize ' >
+     
+          <p onClick={handleClear} className='hover:pl-1 h-fit cursor-pointer rounded-md p-0.5 bg-amber-500 transition-all'>All items  </p>
+          
+          <p onClick={handleClick} className='hover:pl-1 h-fit cursor-pointer rounded-md p-0.5 bg-sky-300   transition-all'>electronic</p>
+          
+          <p onClick={handleClick} className='hover:pl-1 h-fit cursor-pointer rounded-md p-0.5 bg-green-500 transition-all'>toys  </p>
 
-        <div className="flex  items-center justify-between gap-2">
-         <span>max</span> <input type="text" className='bg-slate-100 border-2 border-gray-400  rounded-md w-24'/>
-        </div>
+          <p onClick={handleClick} className='hover:pl-1 h-fit cursor-pointer rounded-md p-0.5 bg-pink-400  transition-all'>fashion   </p>
+       
 
-        <input type="submit" className='btn-auth' value='get' />
+          
+       
+
+
     </div>
   )
 }

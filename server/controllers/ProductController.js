@@ -66,9 +66,10 @@ export const getAllProducts = asyncHandler(async(req  ,res)=>{
 })
 
 export const filterProducts = asyncHandler(async(req,res)=>{
-    const { min , max  , ...others }= req.query;
+    const { prCategory , min , max  , ...others }= req.query;
     const products = await ProductModel.find({
         ...others ,
+        prCategory , 
         prPrice:{$gt:min || 1 , $lt:max || 100000} , 
     }).limit(req.query.limit);
     if(!products){
@@ -85,16 +86,18 @@ export const myProd = asyncHandler(async(req , res)=>{
         return ProductModel.findById(item)
     }))
     if(!items || items == '' || items == null){
-        res.status(404).json("no product for this user")
+        res.status(404).json("No Products Added ..")
     }
     res.status(200).json(items)
 })
+
+
 
 export const Addcart = asyncHandler(async(req , res)=>{
     const user = await UserModel.findById(req.user.id)
     if(!user){
         res.status(401)
-        throw new Error('you most to login first')
+        throw new Error('You Most  Login First')
     }
     const product = await ProductModel.findById(req.params.id)
     
@@ -105,6 +108,7 @@ export const Addcart = asyncHandler(async(req , res)=>{
     await UserModel.findByIdAndUpdate(req.user.id , {$push:{userCart:product.id}})
     res.status(200).json('Added to Cart')
 })
+
 
 export const cart = asyncHandler(async(req   ,res)=>{
     const user = await UserModel.findById(req.user.id)
@@ -123,18 +127,15 @@ export const countByCat = asyncHandler(async(req,res)=>{
     const electrCount = await ProductModel.countDocuments({prCategory:"electronic"})
     const fashionCount = await ProductModel.countDocuments({prCategory:"fashion"})
     const toysCount = await ProductModel.countDocuments({prCategory:"toys"})
+    const allProd = await ProductModel.countDocuments()
     return res.status(200).json([
         {prCategory:"electronic" , count:electrCount},
         {prCategory:"fashion" , count:fashionCount},
-        {prCategory:"toys" , count:toysCount}
+        {prCategory:"toys" , count:toysCount},
+        {prCategory:"all_items" , count:allProd}
     ])
 })
 
-export const countByCategory = asyncHandler(async(req , res)=>{
-    const categories = req.query.categories.split(',')
-    const list = await Promise.all(categories.map(cat =>{
-        return ProductModel.countDocuments({cat})
-    }))
-    return res.status(200).json(list)
-})
+
+
 

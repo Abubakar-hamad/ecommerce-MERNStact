@@ -2,98 +2,105 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import UseFetch from '../hooks/useFetch'
 import Spinner from '../components/Spinner/Spinner'
-import img from '../img.jpg'
+import {BsFillArrowDownCircleFill  , BsFillArrowUpCircleFill } from 'react-icons/bs'
 import {AiOutlineStar , AiFillStar ,AiOutlineShoppingCart  , AiOutlineHeart} from 'react-icons/ai'
 import Review from '../components/Review'
-import { addToCart , getCart, reset } from '../Redux/slices/productSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-
 import {toast} from 'react-toastify'
+
+
 
 const ProductDetails = () => {
     const param  = useParams()
 
-  
-    const dispatch = useDispatch()
     const {data ,isLoading  , isError , messgae}  = UseFetch(`/prod/${param.id}/`)
-    const {cart , product } = useSelector(state => state.products)
+    
     const item = data.product
     const btn = document.getElementById('cart')
     
-   
-
-    useEffect(()=>{
-      dispatch(getCart())
-      if(isError){
-      toast.error(messgae)
-      }
     
-    },[dispatch])
+    var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
 
-    const ToCart = (id)=>{
-      dispatch(addToCart(id))
-      if(product !== ''){
-        toast.success(product)
+    
+    
+    
+    const ToCart=(item)=>{
+    
+    
+    let isItemInCart = cart && cart.find( items => items._id === item._id)
+    
+    if(isItemInCart){
+      return toast.info('item allready added');
       }
+      if(!isItemInCart){
+      item.Qunt = 1
+      localStorage.setItem("cart" , JSON.stringify( [...cart , item]))
+      toast.success('item added success');
+      window.top.location = window.top.location
+    }
     }
     
-    return (
 
-    <div>
-       {item ? 
-       
-      <div className='' >
-       <div className="flex items-center justify-center my-12 container  shadow-xl shadow-black/10">
-     
-    <div className="basis-1/2 grid gap-4 ">
-      <div className="flex gap-4 items-center ">
-      <div className="left">
-      <div className="flex items-center text-yellow-500  ">
+  {/* 
+    <div className="flex items-center text-yellow-500  ">
               <AiFillStar />
               <AiFillStar />
               <AiFillStar />
               <AiFillStar />
               <AiOutlineStar />
-          <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">4.95 out of 5</p>
-        </div> 
-        <div className="det text-sm capitalize">
-              <div className="flex text-2xl  font-bold">
-                  <p>{item.prName}</p>
-              </div>
-              <div className="flex gap-4 text-sm">
-                  <span>category <b>{item.prCategory}</b> </span>
-              </div>
-              <div className="flex gap-10 items-center  ">
-                <span>price <b>{item.prPrice}</b> SDG  </span>
-              </div>
-              <div className="flex gap-4"> 
-                <span>quantity <b>{item.prQuant}</b> </span>
-              </div>
-        </div>
-     
-      </div>
-        <div className="btns flex items-center gap-2">
-        <button id='cart' onClick={()=>{ToCart(item._id)}} className='btn-auth flex justify-center items-center gap-2 '>add to cart <AiOutlineShoppingCart/></button>
-        <AiOutlineHeart className='text-red-400 text-2xl cursor-pointer'/>
-      </div>
-      </div>
-
-     
-        <hr />
-        <div className="">
-        <p>Description</p>
-        <p>{item.prDesc}</p>
-       </div>
-        </div>
           
-        <div className="basis-1/3 ">
-          <img src={img} className='w-full' alt='img' />
+        </div> 
+*/}
+    
+    return (
+
+    <div className='my-10' >
+       {item ? 
+       
+      <div className='container' >
+
+        <div className="md:flex sm:grid sm:container items-center justify-center md:gap-32">
+
+        <div className="md:basis-1/4 sm:basis-1/2 relative ">
+          <img src={item.prImg} className='w-full' alt='img' />
+          <div className="btns flex items-center gap-2">
+          <AiOutlineHeart className='text-red-400 text-2xl cursor-pointer absolute top-5 right-5 hover:scale-125 transition-all'/>
         </div>
-       </div>
+        </div>
+
+        <div className="grid gap-5 capitalize">
+              <div className="flex gap-2 items-center ">
+              <b>Name : </b>  <p className='md:text-6xl sm:text-3xl text-green-700  font-bold'>{item.prName}</p>
+              </div>
+              <button id='cart' onClick={()=>{ToCart(item)}} className='bttn w-full border-gray-400 border-2 flex justify-center items-center capitalize gap-2 '>add to cart <AiOutlineShoppingCart/></button>
+
+              <div className="flex gap-2 text-sm items-center">
+                  <b>category :</b> <p >{item.prCategory}</p>
+              </div>
+              <div className="flex gap-2 text-sm items-center ">
+                <b>price : </b> <p className='text-2xl text-green-700 font-bold'>{item.prPrice} SDG </p>  
+              </div>
+              <div className="flex gap-2 text-sm items-center "> 
+                <b>quantity :  </b> 
+                <div className="flex gap-2 text-2xl items-center justify-center">
+                <b className=''>{item.prQuant}</b> 
+                <div className="grid gap-2 text-green-700">
+                  <BsFillArrowUpCircleFill className='cursor-pointer hover:scale-110 transition-all' />
+                  <BsFillArrowDownCircleFill className='cursor-pointer hover:scale-110 transition-all' />
+                </div>
+                </div>
+              </div>
+                 
+                <hr className='bg-green-800 h-1' />
+                <div className="grid text-xl gap-1">
+                <b className='text-green-700 font-bold' >Description</b>
+                <p>{item.prDesc}</p>
+              </div>
+        </div>
+
+        </div>
+         
        
-       <Review item={item} />
-       
+        <Review className="mt-5" item={item} />
       </div>
       
     :

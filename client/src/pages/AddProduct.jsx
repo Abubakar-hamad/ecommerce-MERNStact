@@ -7,34 +7,56 @@ import { reset ,createProduct } from '../Redux/slices/productSlice'
 import {FaWindowClose} from 'react-icons/fa'
 import axios from 'axios'
 import FileBase64 from 'react-file-base64';
+import { useNavigate } from 'react-router-dom'
 
 
 const AddProduct = () => {
     const dispatch  = useDispatch()
+    const navigate  = useNavigate()
     const {product  , isLoading , isSuccess  , isError} = useSelector(state => state.products )
     const imageRef = useRef()
+    const [image  , setImage] = useState('')
     const [formData ,  setFormData] = useState({
         prName:'' , prQuant:'' , prPrice:'' , prDesc:'' , prImg:'' , prCategory:''
     }) 
-   
+    console.log(image);
+  
     const {prName , prCategory  , prDesc , prImg , prPrice  , prQuant} = formData
    
     const handleChange = (e)=>{
         e.preventDefault() 
         setFormData({
-            ...formData , [e.target.name]:e.target.value
+            ...formData ,[e.target.name]:e.target.value
         })
-      
-    
    }
-  
-    const handleClick =(e)=>{
+
+    const handleSubmit =(e)=>{
         e.preventDefault()
         if(!prName || !prPrice || !prDesc || !prCategory ){
             toast.error('some Fildes is require')    
         }
-        
+        console.log(image.data);
+        formData.prImg = image
         dispatch(createProduct(formData))
+     
+       
+    }
+
+    const setFileToBase = (file)=>{
+        const reader =new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = (e)=>{
+            console.log(reader);
+    
+            setImage(reader.result)
+        }
+   
+    }
+
+    const handleImg = (e)=>{
+        const file = e.target.files[0]
+        setFileToBase(file)
+        console.log(file);
     }
 
     useEffect(()=>{
@@ -50,33 +72,22 @@ const AddProduct = () => {
     if(isLoading){
         <Spinner />
     }
-
+    console.log(image.name);
   return (
-    <div className='container my-10 '>
+    <div className='md:container my-10 '>
         <div className="form capitalize ">
             <h3 className='bg-gradient-to-l from-slate-300 to-orange-100 p-5 rounded-lg'>Create Products</h3>
             <form className='flex items-center justify-around my-5 shadow-md p-5' action="">
                
-
-                <div onClick={()=>{imageRef.current.click()}} className=" relative bg-gradient-to-l from-slate-200 to-slate-50 p-5 border-black/25 border rounded-xl w-80 h-80 flex justify-center items-center lowercase cursor-pointer ">
-                        <div>          
-                            
-  
-           
-         
-                <h3 className='opacity-25'>select Image</h3>
-    
-                            <input  hidden ref={imageRef} onChange={handleChange} type="file" name='prImg' />
-                            <FileBase64 multiple={ false } onDone={handleChange} />
-                            {/* <FaWindowClose className='absolute hover:scale-110 hover:text-gray-700' /> */}
-                        </div>
-                 
-                
-            
-            
-             
-     
+               {image &&  
+                <div className=" w-48 border p-5">
+                <div className="relative">
+                <FaWindowClose onClick={()=>setImage('')} className='absolute top-50 left-50 cursor-pointer hover:scale-110' />
+                <img src={image} alt="img"  />
                 </div>
+
+              </div>
+                }
 
                 <div className="grid items-center justify-center gap-5">
                <input onChange={handleChange} className='form-input' type="text" placeholder='Title' name='prName' />
@@ -89,7 +100,8 @@ const AddProduct = () => {
                     <option value="electronic">electronic</option>
                     <option value="fashion">fashion</option>
                 </select>
-                <button onClick={handleClick} className='btn-primary' >add</button>
+                <input  ref={imageRef} onChange={handleImg} type="file" name='prImg' />
+                <button onClick={handleSubmit} className='btn-primary' >add</button>
                </div>
 
 
