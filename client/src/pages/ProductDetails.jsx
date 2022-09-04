@@ -69,7 +69,7 @@ const ProductDetails = () => {
 
         <div className="grid gap-5 capitalize">
               <div className="flex gap-2 items-center ">
-              <b>Name : </b>  <p className='md:text-6xl sm:text-3xl text-green-700  font-bold'>{item.prName}</p>
+              <p className='md:text-6xl sm:text-3xl text-green-700  font-bold'>{item.prName}</p>
               </div>
               <button id='cart' onClick={()=>{ToCart(item)}} className='bttn w-full border-gray-400 border-2 flex justify-center items-center capitalize gap-2 '>add to cart <AiOutlineShoppingCart/></button>
 
