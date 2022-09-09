@@ -88,7 +88,7 @@ const Review = () => {
 
        <form action="post" className='grid w-60 mx-auto gap-4'>
         <textarea name="text" type="text" value={text}  onChange={handleChange}  cols="30" rows="10"></textarea>
-        <input onClick={handleClick} type="submit" className='bttn' />
+        <input onClick={handleClick} type="submit" className='btn-primary' />
        </form>
         
         </div>

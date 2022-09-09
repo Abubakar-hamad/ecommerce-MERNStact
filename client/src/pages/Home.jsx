@@ -17,7 +17,7 @@ const Home = () => {
 
   const fashion = UseFetch('/prod/filter?prCategory=fashion') 
   const itemsFash= fashion.data.products
-  console.log(itemsElec , 999);
+
   return (
     <div>
       
@@ -78,7 +78,32 @@ const Home = () => {
             </Splide>
         </div>
 
-  
+        
+
+        <div className="electronic my-24 md:container sm:mx-5 ">
+          <p>Toys items</p>
+            <Splide options={{ gap:'.5rem' ,
+      perPage: 3,
+      // pagination:false ,
+      arrows:false , }} >
+                {itemsFash ?  itemsFash.map(item =>{
+                  return(
+                    <>
+                    <SplideSlide key={item._id} onClick={()=> navigate(`/product/${item._id}`) } className=' relative  cursor-pointer h-56 '>
+                      <img  className='rounded-md h-full w-full absolute inset-0  ' src={item.prImg} alt="" />
+                      <p className='absolute overflow-hidden md:text-xl sm:text-sm text-center justify-center items-center md:inset-x-10 sm:inset-x-2   h-fit bottom-8 hover:scale-105  transition-all bg-gray-300 bg-opacity-75'>{item.prName}</p>
+                    </SplideSlide>
+                    </>
+                  )
+                })
+              
+              :
+              
+              ''
+              
+              }
+            </Splide>
+        </div>
     </div>
   )
 }

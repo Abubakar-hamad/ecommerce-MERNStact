@@ -4,7 +4,6 @@ import {AiOutlineClose} from 'react-icons/ai'
 import { NavLink , Link } from 'react-router-dom'
 
 const ResNav = ({showNav , active}) => {
-    console.log(active);
   return (
     <div className='block'>
         {active ?
@@ -14,7 +13,7 @@ const ResNav = ({showNav , active}) => {
            
           
 
-          <div className="absolute  -left-8 top-10 gap-3 grid justify-start backdrop-blur-md bg-slate-100 bg-opacity-25 capitalize  rounded-md border-2 border-black/25 items-center w-60 p-5">
+          <div style={{height:'90vh'}} className="absolute  -left-20 top-10 w-60   grid justify-start backdrop-blur-md bg-slate-100 bg-opacity-25 capitalize  rounded-md border-2 border-black/25 items-center  p-8 font-bold">
           <NavLink onClick={showNav} className='link hover:ml-1' to='/' >home</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to='/products' >items</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/new'}>Add Product</NavLink>

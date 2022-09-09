@@ -14,6 +14,7 @@ import AddProduct from './pages/AddProduct';
 import Cart from './pages/Cart';
 import { useState } from 'react';
 import Footer from './components/Footer';
+import Contact from './components/Contact';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path='/myproducts' element={<MyProduct/>} />
             <Route path='/new' element={<AddProduct/>} />
             <Route path='/cart' element={<Cart cart={cart}/>} />
+            <Route path='/contact' element={<Contact />} />
           </Routes>
           <Footer />
           <ToastContainer/>

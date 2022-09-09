@@ -69,30 +69,30 @@ const ProductDetails = () => {
 
         <div className="grid gap-5 capitalize">
               <div className="flex gap-2 items-center ">
-              <p className='md:text-6xl sm:text-3xl text-green-700  font-bold'>{item.prName}</p>
+              <p className='md:text-6xl sm:text-3xl text-blue-700  font-bold'>{item.prName}</p>
               </div>
-              <button id='cart' onClick={()=>{ToCart(item)}} className='bttn w-full border-gray-400 border-2 flex justify-center items-center capitalize gap-2 '>add to cart <AiOutlineShoppingCart/></button>
+              <button id='cart' onClick={()=>{ToCart(item)}} className='btn w-full border-gray-400 border-2 flex justify-center items-center capitalize gap-2 '>add to cart <AiOutlineShoppingCart/></button>
 
               <div className="flex gap-2 text-sm items-center">
                   <b>category :</b> <p >{item.prCategory}</p>
               </div>
               <div className="flex gap-2 text-sm items-center ">
-                <b>price : </b> <p className='text-2xl text-green-700 font-bold'>{item.prPrice} SDG </p>  
+                <b>price : </b> <p className='text-2xl text-blue-700 font-bold'>{item.prPrice} SDG </p>  
               </div>
               <div className="flex gap-2 text-sm items-center "> 
                 <b>quantity :  </b> 
                 <div className="flex gap-2 text-2xl items-center justify-center">
                 <b className=''>{item.prQuant}</b> 
-                <div className="grid gap-2 text-green-700">
+                <div className="grid gap-2 text-blue-700">
                   <BsFillArrowUpCircleFill className='cursor-pointer hover:scale-110 transition-all' />
                   <BsFillArrowDownCircleFill className='cursor-pointer hover:scale-110 transition-all' />
                 </div>
                 </div>
               </div>
                  
-                <hr className='bg-green-800 h-1' />
+                <hr className='bg-blue-800 h-1' />
                 <div className="grid text-xl gap-1">
-                <b className='text-green-700 font-bold' >Description</b>
+                <b className='text-blue-700 font-bold' >Description</b>
                 <p>{item.prDesc}</p>
               </div>
         </div>
