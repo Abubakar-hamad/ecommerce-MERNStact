@@ -43,3 +43,16 @@ export const getComments = asyncHandler(async(req  , res)=>{
     res.status(200).json(commments)
     
 })
+
+export const getAllComment = asyncHandler(async(req  , res)=>{
+    const comments = await CommentModel.find()
+    return res.status(200).json(comments)
+})
+
+export const commentCount = asyncHandler(async(req , res)=>{
+    const cmmCount = await CommentModel.countDocuments({})
+    if(!cmmCount || cmmCount == '' || cmmCount == undefined) return res.status(200).json('No Users In DB')
+
+    return res.status(200).json({'count':cmmCount})
+})
+

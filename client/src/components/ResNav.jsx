@@ -13,14 +13,13 @@ const ResNav = ({showNav , active}) => {
            
           
 
-          <div style={{height:'90vh'}} className="absolute  -left-20 top-10 w-60   grid justify-start backdrop-blur-md bg-slate-100 bg-opacity-25 capitalize  rounded-md border-2 border-black/25 items-center  p-8 font-bold">
+          <div style={{height:'90vh'}} className="absolute  -left-20 top-10 w-60   grid justify-center backdrop-blur-md bg-slate-100 bg-opacity-25 capitalize  rounded-md border-2 border-black/25 items-center  p-8 font-bold">
           <NavLink onClick={showNav} className='link hover:ml-1' to='/' >home</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to='/products' >items</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/new'}>Add Product</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/saved'}>saved Product</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/myproducts'}>My Product</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/contact'}>contact</NavLink>
-          <NavLink onClick={showNav} className='link hover:ml-1' to={'/about'}>about</NavLink>         
           </div>
           
                 

@@ -11,10 +11,10 @@ import userPrpfiel from   '../userProfile.png'
 import { useState } from 'react'
 import ResNav from './ResNav'
 
+import {FaSolarPanel} from 'react-icons/fa'
 
 
-
-const Header = () => {
+const Header = ({profileUser}) => {
 
     const navigate = useNavigate()
     const date =  Date();
@@ -30,7 +30,9 @@ const Header = () => {
         }
        navigate('/login')
     }
+    const adminP = ()=>{
 
+    }
     const mouseHover =()=>{
         setModel(x=> !x)
     }
@@ -78,7 +80,11 @@ const Header = () => {
         
         </div>
 
-        <nav className='hidden md:block'  >
+            {profileUser.isAdmin && 
+            <NavLink to='/adminPanel'><FaSolarPanel className='fixed z-10 cursor-pointer text-6xl bg-blue-700 text-white p-2 rounded-full bottom-5 right-10 hover:scale-125 transition-all' onClick={adminP} /></NavLink>
+            }
+            {!profileUser.isAdmin &&
+            <nav className='hidden md:block'  >
             <ul className='flex gap-3 ' id='count'>
                 <NavLink className='link ' to='/' >home</NavLink>
                 <NavLink className='link ' to='/products' >items</NavLink>
@@ -86,7 +92,7 @@ const Header = () => {
                     <span className='flex items-center  cursor-pointer link' > navigate <IoIosArrowDown className='text-sm' /></span>
                    {model ?
                      <div  onMouseLeave={()=>setModel(false)}  className="dropdown">
-                     <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/new'}>Add Product</NavLink>
+                     {profileUser.isAdmin && <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={`/new`}>Add Product</NavLink>}
                      <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/'}>saved Product</NavLink>
                      <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/myproducts'}>My Product</NavLink>
                     </div>
@@ -96,16 +102,16 @@ const Header = () => {
 
                 </div>
                 <NavLink  className='link' to={'/contact'}>contact</NavLink>
-                <NavLink  className='link' to={'/about'}>about</NavLink>
                 <NavLink className='relative' to={'/cart'}>
                     <BsCart4 className='text-2xl mx-3'/> 
                     {cart  &&
  
- <span className='absolute -top-3 -right-1 bg-rose-900 text-white text-sm w-5 h-5  text-center rounded-full '>{cart.length}</span>
+                    <span className='absolute -top-3 -right-1 bg-rose-900 text-white text-sm w-5 h-5  text-center rounded-full '>{cart.length}</span>
                     }
                 </NavLink>
             </ul>
-        </nav>
+            </nav>
+            }
         
 
 

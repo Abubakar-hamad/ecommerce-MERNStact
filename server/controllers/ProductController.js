@@ -105,6 +105,13 @@ export const countByCat = asyncHandler(async(req,res)=>{
     ])
 })
 
+export const productCount = asyncHandler(async(req , res)=>{
+    const prCount = await ProductModel.countDocuments({})
+    if(!prCount || prCount == '' || prCount == undefined) return res.status(200).json('No Users In DB')
+
+    return res.status(200).json({'count':prCount})
+})
+
 
 
 

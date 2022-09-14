@@ -98,8 +98,7 @@ const ProductDetails = () => {
         </div>
 
         </div>
-         
-       
+     
         <Review className="mt-5" item={item} />
       </div>
       

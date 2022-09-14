@@ -15,7 +15,9 @@ const Review = () => {
     const {comments , isLoading , isSuccess  , isError , message} = useSelector(state => state.review)
     const [formData , setFormData] = useState({text:''})
     const {text}= formData
-    console.log(formData);
+
+
+
     useEffect(()=>{
     
         dispatch(getComments(id))
@@ -49,21 +51,31 @@ const Review = () => {
     }
 
     return (
-    <div className={comments ? 'container mt-5 grid md:gap-2  shadow-xl shadow-black/10  ' : 'flex justify-center items-center'}>
+    <div className={comments ? 'container mt-10 grid md:gap-2  shadow-xl shadow-black/10 border-t-4 p-2 border-blue-500  ' : 'flex justify-center items-center'}>
+        <p className='bg-blue-200 text-center font-bold my-5'>Review</p>
+       <div className="addRev container grid  basis-1/4">
+
+        <form action="post" className='grid w-60 mx-auto gap-4'>
+        <textarea name="text" type="text" value={text}  onChange={handleChange}  cols="30" rows="10"></textarea>
+        <input onClick={handleClick} type="submit" className='btn-primary' />
+        </form>
+        
+        </div>
+       
         <div className=" scroll overflow-y-auto overflow-x-hidden h-72 p-10   ">
 
               {comments  ? 
               
               comments.map(comment =>{
                 return(
-                    <div key={comment._id} className="comment text-sm  mb-5 border-b-2 border-gray-400 py-3">
-                    <div className="heder flex justify-between items-center bg-slate-300 rounded-md p-2">
+                    <div key={comment._id} className="comment text-sm   mb-5 border-b-2 border-gray-400 py-3">
+                    <div className="heder flex justify-around items-center bg-slate-300 rounded-md p-2">
                         <img className='w-10 h-10 rounded-full' src={comment.userImg} alt="img" />
                         <div className="userNameAndReview grid items-center ">
                             <p>{comment.userName}</p>
-                            <span>4.0</span>
+                  
                         </div>
-                        <div className="time">
+                        <div className="time hidden md:block">
                             {comment.createdAt}
                         </div>
                     </div>
@@ -78,20 +90,13 @@ const Review = () => {
     
               <h3 className='bg-slate-400'>no comment on this product</h3>
             
-              }       
-            
-
-            
+              }        
 
         </div>
-        <div className="addRev container grid  basis-1/4">
 
-       <form action="post" className='grid w-60 mx-auto gap-4'>
-        <textarea name="text" type="text" value={text}  onChange={handleChange}  cols="30" rows="10"></textarea>
-        <input onClick={handleClick} type="submit" className='btn-primary' />
-       </form>
-        
-        </div>
+
+
+      
     </div>
   )
 }

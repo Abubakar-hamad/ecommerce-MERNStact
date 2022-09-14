@@ -1,17 +1,19 @@
-import React from 'react'
-
-import { useState } from 'react'
+import  React , { useState , useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Search from './Search'
 import Spinner from './Spinner/Spinner'
 import UseFetch from '../hooks/useFetch'
+import ReactPaginate from 'react-paginate';
 
-const Products = () => {
-    // const dispatch = useDispatch()
+
+
+
+
+const Products = ({items}) => {
+
     const [type , setType] = useState('')
     
-    // const {items, isLoading , isError  , message  , isSuccess}  =  useSelector(state => state.products)  
     const navigate = useNavigate()
     const {data  , isLoading , isError} =  UseFetch(type ? `/prod/filter?prCategory=${type}` : `/prod/` ) 
   
@@ -20,8 +22,10 @@ const Products = () => {
         toast.error(isError.message)
     }
 
-
-   
+    useEffect(()=>{
+        
+    } , [])
+ 
 
     return (
 
@@ -49,14 +53,29 @@ const Products = () => {
                 </div>                   
         )
        })
+
+       
         : 
     
        <Spinner />
 
 
-       } 
-
+       }
+        
     </div>
+        {/* <>
+    
+
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        // onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        // pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+      />
+        </> */}
 
     
     </div>

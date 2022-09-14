@@ -8,7 +8,7 @@ const toTop = ()=>{
 
 }
   return (
-    <footer className='p-4 bg-blue-700 text-white sm:p-6 mt-24 '>
+    <footer className='p-4 bg-blue-500 text-white sm:p-6 mt-5'>
         <div className="container">
           <p className='text-center font-bold text-2xl uppercase'>get connected with us on social network</p>
           <br />

@@ -4,11 +4,12 @@ import asyncHandler from "express-async-handler";
 export const getMe = asyncHandler(async(req  ,res )=>{
         const id = req.user.id
         const user =  await UserModel.findById(id)
-        const { password , isAdmin , ...other} = user._doc
+        const { password  , ...other} = user._doc
         return res.status(201).json(other)
              
         
 })
+
 
 
 export const updateUser = asyncHandler(async(req  , res)=>{
@@ -38,6 +39,13 @@ export const getUsers =   asyncHandler(async(req , res)=>{
 
     res.status(200).json(users)
 })
+
+
+export const userCount = asyncHandler(async(req , res)=>{
+    const users  = await UserModel.countDocuments({})
+    if(!users || users == '' || users == undefined) return res.status(200).json('No Users In DB')
+    res.status(200).json({'count':users})
+}) 
 
 export const getUser = asyncHandler(async(req , res)=>{
     const user = await UserModel.findById(req.params.id)

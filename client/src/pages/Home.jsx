@@ -11,7 +11,6 @@ const Home = () => {
   const navigate = useNavigate()
   const electronic = UseFetch('/prod/filter?prCategory=electronic') 
   const itemsElec = electronic.data.products
-
   const toys = UseFetch('/prod/filter?prCategory=toys') 
   const itemsToy = toys.data.products
 
@@ -28,7 +27,7 @@ const Home = () => {
         </div>
 
         <div className="electronic my-24 md:container sm:mx-5 ">
-          <p>Electronic items</p>
+          <p>Electronic </p>
             <Splide options={{ gap:'.5rem' ,
       perPage: 3,
       // pagination:false ,
@@ -54,7 +53,7 @@ const Home = () => {
 
 
         <div className="electronic my-24 md:container sm:mx-5 ">
-          <p>Toys items</p>
+          <p>Toys</p>
             <Splide options={{ gap:'.5rem' ,
       perPage: 3,
       // pagination:false ,
@@ -81,7 +80,7 @@ const Home = () => {
         
 
         <div className="electronic my-24 md:container sm:mx-5 ">
-          <p>Toys items</p>
+          <p>Fashion</p>
             <Splide options={{ gap:'.5rem' ,
       perPage: 3,
       // pagination:false ,
