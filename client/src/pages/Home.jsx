@@ -1,8 +1,6 @@
 import React from 'react'
-import img from '../img/cart.jpg'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css/skyblue';
-import { useState } from 'react';
 import UseFetch from '../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 

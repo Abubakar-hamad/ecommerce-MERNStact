@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import { NavLink  ,Link ,useNavigate } from 'react-router-dom'
-import UseFetch from '../hooks/useFetch'
 import {AiOutlineMail , AiOutlineTwitter , AiOutlineInstagram} from 'react-icons/ai'
 import {BsTelephone , BsFacebook , BsCart4} from 'react-icons/bs'
 import {IoIosArrowDown} from 'react-icons/io'
@@ -70,7 +69,7 @@ const Header = ({profileUser}) => {
 
     <div className='flex justify-around items-center h-20 p-5 z-10 shadow-md shadow-gray-500 bg-slate-300 text-gray-800 sticky top-0 '>
         <div className="md:hidden sm:block">
-        <ResNav setActive={setActive} active={active} showNav={showNav} />
+        <ResNav profileUser={profileUser} setActive={setActive} active={active} showNav={showNav} />
     
         </div>
         <div onClick={()=> navigate('/')}   className="cursor-pointer text-blue w-32 h-12  md:flex justify-center items-center hidden   ">
@@ -83,24 +82,28 @@ const Header = ({profileUser}) => {
             {profileUser.isAdmin && 
             <NavLink to='/adminPanel'><FaSolarPanel className='fixed z-10 cursor-pointer text-6xl bg-blue-700 text-white p-2 rounded-full bottom-5 right-10 hover:scale-125 transition-all' onClick={adminP} /></NavLink>
             }
-            {!profileUser.isAdmin &&
+            
             <nav className='hidden md:block'  >
             <ul className='flex gap-3 ' id='count'>
                 <NavLink className='link ' to='/' >home</NavLink>
                 <NavLink className='link ' to='/products' >items</NavLink>
+                {!profileUser.isAdmin && <>
                 <div className='realative' onClick={mouseHover}  to='/' >
                     <span className='flex items-center  cursor-pointer link' > navigate <IoIosArrowDown className='text-sm' /></span>
                    {model ?
                      <div  onMouseLeave={()=>setModel(false)}  className="dropdown">
-                     {profileUser.isAdmin && <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={`/new`}>Add Product</NavLink>}
+                    
                      <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/'}>saved Product</NavLink>
                      <NavLink className='border-b-2 border-b-solid border-b-gray-400 opacity-75 hover:opacity-100 hover:ml-2 hover:transition-all' to={'/myproducts'}>My Product</NavLink>
+                    
                     </div>
                     :
                     ''   
-                }
+                    }
 
                 </div>
+                </>
+                     }
                 <NavLink  className='link' to={'/contact'}>contact</NavLink>
                 <NavLink className='relative' to={'/cart'}>
                     <BsCart4 className='text-2xl mx-3'/> 
@@ -111,7 +114,7 @@ const Header = ({profileUser}) => {
                 </NavLink>
             </ul>
             </nav>
-            }
+           
         
 
 

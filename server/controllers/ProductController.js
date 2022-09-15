@@ -15,9 +15,9 @@ export const createProd = asyncHandler(async(req , res)=>{
         ...req.body
     })
     await product.save();
-    console.log(product.id);
+
     await UserModel.findByIdAndUpdate(req.user.id , {$push:{userProd:product.id}})
-    console.log(req.user);
+
     res.status(201).json({"Product Publish" : product})
 }) 
 
@@ -107,7 +107,9 @@ export const countByCat = asyncHandler(async(req,res)=>{
 
 export const productCount = asyncHandler(async(req , res)=>{
     const prCount = await ProductModel.countDocuments({})
-    if(!prCount || prCount == '' || prCount == undefined) return res.status(200).json('No Users In DB')
+    if(!prCount || prCount == '' || prCount == undefined){
+        return res.status(200).json('No Users In DB')
+    } 
 
     return res.status(200).json({'count':prCount})
 })

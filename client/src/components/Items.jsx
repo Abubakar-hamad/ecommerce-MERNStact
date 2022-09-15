@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
-import UseFetch from '../hooks/useFetch'
+import React from 'react'
 import {AiFillDelete} from 'react-icons/ai'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 
 const Items = ({items , setItems}) => {
-    
+  const navigate = useNavigate() 
   const deleteItem = async(id)=>{
     const itemToDel = items.filter(items => items._id !== id)
     setItems(itemToDel)
@@ -45,8 +45,8 @@ const Items = ({items , setItems}) => {
         </div>
         { items.map((item  ,i ) =>{
           return (
-            <div key={item._id} className='border-b relative border-slate-300 p-5 hover:bg-slate-300 hover:rounded-md hover:transition-all   md:container cursor-pointer sm:grid md:flex  items-center justify-between '>
-           <AiFillDelete className='absolute text-red-700 top-5 right-5 hover:scale-125' onClick={()=>deleteItem(item._id)} />
+            <div onClick={()=>navigate(`/product/${item._id}`)} key={item._id} className='border-b relative border-slate-300 p-5 hover:bg-slate-300 hover:rounded-md hover:transition-all   md:container cursor-pointer sm:grid md:flex  items-center justify-between '>
+           <AiFillDelete className='absolute text-red-700 top-5 right-0 hover:scale-125 hover:transition-all  ' onClick={()=>deleteItem(item._id)} />
             <div className='basis-1/4 md:flex sm:grid  md:gap-10 items-center justify-items-start text-right'>
             <p className='sm:font-bold' >{i + 1} </p>
            <div className='flex gap-4' >

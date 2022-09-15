@@ -13,6 +13,7 @@ body{
 .form-input{
     @apply outline-none border-b-2 p-3 border-gray-400 text-xl bg-inherit
 }
+
 .btn-primary{
     @apply py-2 px-4 bg-blue-500  text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 capitalize cursor-pointer 
 }
@@ -42,3 +43,8 @@ body{
 .scroll::-webkit-scrollbar{
     display: none;
 }
+
+.disable {
+    @apply opacity-50 cursor-auto hover:bg-blue-500
+}
+

@@ -56,3 +56,15 @@ export const commentCount = asyncHandler(async(req , res)=>{
     return res.status(200).json({'count':cmmCount})
 })
 
+
+export const delComment = asyncHandler(async(req  , res)=>{
+    const commnt = await CommentModel.findById(req.params.id)
+    if(!commnt) {
+        res.status(400)
+        throw new Error('Thers Is No Comment With This ID')
+    }
+    const pID = commnt.productId
+    await ProductModel.findByIdAndUpdate(pID , {$pull:{comments:req.params.id}})
+    await CommentModel.findByIdAndDelete(commnt._id)
+    res.status(201).json('comment Deleted success')
+})

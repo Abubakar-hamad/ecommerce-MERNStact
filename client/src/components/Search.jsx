@@ -1,17 +1,18 @@
 import React from 'react'
-import UseFetch from '../hooks/useFetch'
 
-const Search = ({setType}) => {
+const Search = ({setType , setFind}) => {
   
 
-  // const {data } = UseFetch('/prod/category')
 
   const handleClick = (e)=>{
    const val =  e.target.innerText
-   {setType(val.toLowerCase())}
+    setType(val.toLowerCase())
+    setFind(true)
+    
    
   }
   const handleClear = ()=>{
+   setFind(false)
     setType('')
   }
   return (

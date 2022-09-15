@@ -6,12 +6,11 @@ import { useNavigate  , Link} from 'react-router-dom'
 import { reset , loginUser } from '../Redux/slices/userSlice'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner/Spinner'
-import axios from 'axios'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {user , isSuccess , isLoading , isError , message}  = useSelector(state => state.auth)
+  const {  isSuccess , isLoading , isError , message}  = useSelector(state => state.auth)
   const [formData ,setFormData] = useState({
     email:'' , password:'' 
   })

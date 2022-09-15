@@ -3,7 +3,7 @@ import UseFetch from '../hooks/useFetch'
 import {AiFillEdit} from 'react-icons/ai'
 import {FaSave} from 'react-icons/fa'
 const MyProfile = () => {
-    const {data  , isLoading , isError} = UseFetch('user/me')
+    const {data } = UseFetch('user/me')
     const [edit , setEdit] = useState(false)
   return (
    

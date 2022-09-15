@@ -1,5 +1,4 @@
 import React , {useEffect} from 'react'
-import {AiOutlineStar } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'

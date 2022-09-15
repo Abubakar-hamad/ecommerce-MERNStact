@@ -22,12 +22,12 @@ import {FaSolarPanel} from 'react-icons/fa'
 import Users from './components/Users';
 import Items from './components/Items';
 import Comments from './components/Comments';
+import Spinner from './components/Spinner/Spinner';
 function App() {
   const [cart , setCart] =  useState('')
   const [profileUser , setProfileUser] = useState('')
   const [items  , setItems] = useState('')
 
- 
 
   useEffect(()=>{
     const user = ()=>{
@@ -56,8 +56,9 @@ function App() {
 
     getItem()
   } , [])
- 
-console.log(items , 3214);
+
+  if(items == '')
+  return <Spinner/>
   return (
    
     
@@ -71,7 +72,7 @@ console.log(items , 3214);
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/profile' element={<MyProfile />} />
-            <Route path='/product/:id' element={<ProductDetails setCart={setCart} cart={cart} />} />
+            <Route path='/product/:id' element={<ProductDetails profileUser={profileUser} setCart={setCart} cart={cart} />} />
             <Route path='/products' element={<Products items={items} />} />
             <Route path='/myproducts' element={<MyProduct/>} />
             <Route path='/new' element={<AddProduct profileUser={profileUser}/>} />

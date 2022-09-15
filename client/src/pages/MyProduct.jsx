@@ -13,7 +13,7 @@ import { deleteProducts } from '../Redux/slices/productSlice'
 const MyProduct = () => {
   const dispatch = useDispatch()  
   
-  const {data  ,  isLoading   , isError ,   } = UseFetch('/prod/Myproduct')
+  const {data  ,  isLoading   , isError  } = UseFetch('/prod/Myproduct')
   
     const navigate =useNavigate()
     

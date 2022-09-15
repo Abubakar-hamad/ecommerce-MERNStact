@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Spinner from '../components/Spinner/Spinner'
-import UseFetch from  '../hooks/useFetch'
-import {AiOutlineEdit , AiFillDelete} from 'react-icons/ai'
+import {  AiFillDelete} from 'react-icons/ai'
 import {BsFillArrowDownCircleFill  , BsFillArrowUpCircleFill } from 'react-icons/bs'
 import {FaWindowClose} from 'react-icons/fa'
-import { toast } from 'react-toastify'
 
 
 import {FaCcPaypal  , FaCcVisa , FaCcAmazonPay } from 'react-icons/fa'
@@ -19,11 +16,7 @@ const Cart = () => {
   let [payment , setPayment]  = useState(false)
   let data = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
   
-  // const qunt = data.map(items =>items.Qunt) 
-  // const sumQuant =  qunt?.reduce((acc , i )=>{
-  //   return acc + i
-  // })
- 
+  
 
 
   const increse = (p)=>{

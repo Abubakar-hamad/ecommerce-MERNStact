@@ -1,12 +1,12 @@
 import React from 'react'
-import { useState } from 'react'
+import {useNavigate , Link} from 'react-router-dom'
 import {BsFacebook , BsLinkedin , BsGithub , BsWhatsapp}  from 'react-icons/bs'
-import {ImTwitter} from 'react-icons/im'
 import { BsFillArrowUpCircleFill } from 'react-icons/bs'
 const Footer = () => {
 const toTop = ()=>{
 
 }
+const navigate = useNavigate()
   return (
     <footer className='p-4 bg-blue-500 text-white sm:p-6 mt-5'>
         <div className="container">
@@ -19,10 +19,10 @@ const toTop = ()=>{
             <div className="grid justify-center items-center text-2xl gap-3">
             <p className='uppercase'> follow me in </p>
             <div className="flex justify-center items-center gap-5">
-            <BsFacebook/>
-          <BsGithub/>
-          <BsLinkedin/>
-          <BsWhatsapp />  
+             <a target='_blank' href="www.facebook.com"><BsFacebook /></a>
+             <a target='_blank' href="https://github.com/Abubakar-hamad"><BsGithub/></a>
+             <a target='_blank' href="https://www.linkedin.com/in/abubakar-hmd-52272b1b7/"><BsLinkedin/></a>
+             <a target='_blank' href="https://api.whatsapp.com/send/?phone=249922838007&text&type=phone_number&app_absent=0"><BsWhatsapp /></a>  
             </div>
             </div>
           <div className="grid justify-end bg items-center md:border-l-2 border-gray-500 p-5">

@@ -1,27 +1,31 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import UseFetch from '../hooks/useFetch'
 import Spinner from '../components/Spinner/Spinner'
 import {BsFillArrowDownCircleFill  , BsFillArrowUpCircleFill } from 'react-icons/bs'
-import {AiOutlineStar , AiFillStar ,AiOutlineShoppingCart  , AiOutlineHeart} from 'react-icons/ai'
+import {AiOutlineShoppingCart  , AiOutlineHeart} from 'react-icons/ai'
 import Review from '../components/Review'
 import {toast} from 'react-toastify'
 
 
 
-const ProductDetails = () => {
+const ProductDetails = ({profileUser}) => {
     const param  = useParams()
-
-    const {data ,isLoading  , isError , messgae}  = UseFetch(`/prod/${param.id}/`)
+    const navigate = useNavigate()
+    const {data}  = UseFetch(`/prod/${param.id}/`)
     
     const item = data.product
-    const btn = document.getElementById('cart')
     
     
     var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
 
-    
-    
+
+    if(!profileUser || profileUser === ''){
+      toast.error('You Must Be Login In First')
+      setTimeout(()=>{
+        navigate('/login')
+      } , 3000)
+    }
     
     const ToCart=(item)=>{
     
@@ -40,16 +44,7 @@ const ProductDetails = () => {
     }
     
 
-  {/* 
-    <div className="flex items-center text-yellow-500  ">
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
-          
-        </div> 
-*/}
+
     
     return (
 

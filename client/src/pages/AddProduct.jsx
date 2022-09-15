@@ -5,8 +5,6 @@ import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner/Spinner'
 import { reset ,createProduct } from '../Redux/slices/productSlice'
 import {FaWindowClose} from 'react-icons/fa'
-import axios from 'axios'
-import FileBase64 from 'react-file-base64';
 import { useNavigate } from 'react-router-dom'
 
 

@@ -26,8 +26,14 @@ export const updateUser = asyncHandler(async(req  , res)=>{
 
 export const deleteUser = asyncHandler(async(req , res)=>{
     const user = await UserModel.findByIdAndRemove(req.params.id)
+    if(!user){
+        res.status(404)
+        throw new Error('User Selected Not Found')
+    }
+    
     res.status(200).json({"deleted user with info":user})
 })
+
 
 
 export const getUsers =   asyncHandler(async(req , res)=>{
@@ -55,3 +61,6 @@ export const getUser = asyncHandler(async(req , res)=>{
     }
     res.status(200).json(user)
 })
+
+
+
