@@ -55,17 +55,6 @@ app.use('/api/user'  , User)
 app.use('/api/prod'  , Product)
 app.use('/api/comment' , Comm )
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')));
-  
-    app.get('*', (req, res) =>
-      res.sendFile(
-        path.resolve(__dirname, '../', 'client', 'build', 'index.html')
-      )
-    );
-  } else {
-    app.get('/', (req, res) => res.send('Please set to production'));
-  }
 
 
 app.listen(port , ()=> console.log(`server Running on Port ${port}`) )
