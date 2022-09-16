@@ -23,7 +23,6 @@ import cookieParser from "cookie-parser";
 import bodyParser from 'body-parser'
 app.use(cors())
 app.use(express.json())
-app.use(errorHandler)
 app.use(cookieParser())
 
 app.use(bodyParser.json({limit: '50mb'}));
@@ -55,6 +54,18 @@ app.use('/api/user'  , User)
 app.use('/api/prod'  , Product)
 app.use('/api/comment' , Comm )
 
+// Serve frontend
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+    
+    app.get('*', (req, res) =>
+      res.sendFile(
+          path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
+      )
+      );
+  } else {
+    app.get('/', (req, res) => res.send('Please set to production'));
+}
 
-
+app.use(errorHandler)
 app.listen(port , ()=> console.log(`server Running on Port ${port}`) )
