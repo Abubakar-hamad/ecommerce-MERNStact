@@ -32,14 +32,14 @@ const AdminPanel = ({profileUser}) => {
         setAddNew(true)
     }
 
-    const {product  , isLoading , isSuccess  , isError} = useSelector(state => state.products )
+    const {isLoading   , isError} = useSelector(state => state.products )
     const imageRef = useRef()
     const [image  , setImage] = useState('')
     const [formData ,  setFormData] = useState({
         prName:'' , prQuant:'' , prPrice:'' , prDesc:'' , prImg:'' , prCategory:''
     }) 
   
-    const {prName , prCategory  , prDesc , prImg , prPrice  , prQuant} = formData
+    const {prName , prCategory  , prDesc  , prPrice  , prQuant} = formData
    
     const handleChange = (e)=>{
         e.preventDefault() 

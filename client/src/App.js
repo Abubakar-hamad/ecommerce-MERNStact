@@ -1,6 +1,6 @@
-import  {BrowserRouter as Router , Routes  , Route, useNavigate } from 'react-router-dom'
+import  {BrowserRouter as Router , Routes  , Route } from 'react-router-dom'
 import {AnimatePresence} from 'framer-motion'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Header from './components/Header';
@@ -12,13 +12,12 @@ import Products from './components/Products';
 import MyProduct from './pages/MyProduct';
 import AddProduct from './pages/AddProduct';
 import Cart from './pages/Cart';
-import { Profiler, useState } from 'react';
+import {  useState } from 'react';
 import Footer from './components/Footer';
 import Contact from './components/Contact';
 import axios from 'axios';
 import { useEffect } from 'react';
 import AdminPanel from './components/AdminPanel';
-import {FaSolarPanel} from 'react-icons/fa'
 import Users from './components/Users';
 import Items from './components/Items';
 import Comments from './components/Comments';
@@ -57,7 +56,7 @@ function App() {
     getItem()
   } , [])
 
-  if(items == '')
+  if(items === '')
   return <Spinner/>
   return (
    
