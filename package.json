@@ -12,8 +12,8 @@
     "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Abubakar Hmd",
+  "license": "MIT",
   "dependencies": {
     "@mantine/core": "^5.2.4",
     "@mantine/hooks": "^5.2.4",
