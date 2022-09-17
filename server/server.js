@@ -31,9 +31,11 @@ import bodyParser from 'body-parser'
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
+app.use(express.json())
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(errorHandler)
 
 app.use(express.static('public'))
 // multer config
@@ -69,5 +71,4 @@ if (process.env.NODE_ENV === 'production') {
     app.get('/', (req, res) => res.send('Please set to production'));
 }
 
-app.use(errorHandler)
 app.listen(port , ()=> console.log(`server Running on Port ${port}`) )
