@@ -17,7 +17,6 @@ const ResNav = ({ profileUser , showNav , active}) => {
           <NavLink onClick={showNav} className='link hover:ml-1' to='/' >home</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to='/products' >items</NavLink>
           {!profileUser.isAdmin && <>
-          <NavLink onClick={showNav} className='link hover:ml-1' to={'/new'}>Add Product</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/saved'}>saved Product</NavLink>
           <NavLink onClick={showNav} className='link hover:ml-1' to={'/myproducts'}>My Product</NavLink>
           </>

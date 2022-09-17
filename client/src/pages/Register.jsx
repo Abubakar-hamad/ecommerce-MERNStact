@@ -44,6 +44,7 @@ const Register = () => {
         name , email , password
       }
       dispatch(registerUser(userData))
+      
     }
   }
   return (

@@ -1,8 +1,12 @@
 import React from 'react'
 import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const Contact = () => {
+const Contact = ({profileUser}) => {
+
+   const navigate = useNavigate()
+
 
    
 

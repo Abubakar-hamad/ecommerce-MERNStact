@@ -50,7 +50,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage:storage}).single('prImg')
 
-app.post('/api/uploads' , upload , (req , res)=>{
+app.post('/uploads' , upload , (req , res)=>{
     const {file} = req;
     res.send({ 
         file:file.originalname,
@@ -58,10 +58,10 @@ app.post('/api/uploads' , upload , (req , res)=>{
         })
 }) 
 
-app.use('/api/Auth'  , Auth)
-app.use('/api/user'  , User)
-app.use('/api/prod'  , Product)
-app.use('/api/comment' , Comm )
+app.use('/Auth'  , Auth)
+app.use('/user'  , User)
+app.use('/prod'  , Product)
+app.use('/comment' , Comm )
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {

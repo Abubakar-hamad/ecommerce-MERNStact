@@ -76,7 +76,7 @@ function App() {
             <Route path='/myproducts' element={<MyProduct/>} />
             <Route path='/new' element={<AddProduct profileUser={profileUser}/>} />
             <Route path='/cart' element={<Cart cart={cart}/>} />
-            <Route path='/contact' element={<Contact />} />
+            <Route path='/contact' element={<Contact profileUser={profileUser} />} />
             <Route path='/adminPanel' element={<AdminPanel profileUser={profileUser}/>}/>
             <Route path='/adminPanel/users' element={<Users/>}/>
             <Route path='/adminPanel/items' element={<Items items={items} setItems={setItems}/>}/>
